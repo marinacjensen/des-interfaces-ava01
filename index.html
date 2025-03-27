@@ -60,34 +60,35 @@
         let adicionarButton = document.querySelector("#adicionarButton");
         let removerButton = document.querySelector("#removerButton");
         let resetarButton = document.querySelector("#resetarButton");
-
+    
         function adicionarCard() {
+            if (imagemInput.files.length === 0) {
+                alert("A adição de imagens é obrigatória. Por favor, selecione uma foto para continuar.");
+                return;
+            }
+    
             const card = document.createElement("div");
             card.classList.add("card");
-
+    
             let imagem = document.createElement("img");
             let file = imagemInput.files[0];
-            if (file) {
-                imagem.src = URL.createObjectURL(file);
-            } else {
-                imagem.src = null;
-            }
+            imagem.src = URL.createObjectURL(file);
             card.appendChild(imagem);
-
+    
             const cardText = document.createElement("div");
             cardText.classList.add("card-text");
             cardText.innerText = textoInput.value || "Texto do Card";
             card.appendChild(cardText);
-
+    
             card.style.backgroundColor = bgColorInput.value;
             card.style.borderColor = borderColorInput.value;
             card.style.fontSize = fontSizeInput.value + "px";
             card.style.width = cardWidthInput.value + "px";
             card.style.height = cardHeightInput.value + "px";
-
+    
             painel.appendChild(card);
         }
-
+    
         function removerCard() {
             let todosCards = document.querySelectorAll(".card");
             let cardEscolhido = parseInt(escolhidoInput.value) - 1;
@@ -95,14 +96,15 @@
                 todosCards[cardEscolhido].remove();
             }
         }
-
+    
         function limparCards() {
             painel.innerHTML = "";
         }
-
+    
         adicionarButton.addEventListener("click", adicionarCard);
         removerButton.addEventListener("click", removerCard);
         resetarButton.addEventListener("click", limparCards);
     </script>
+    
 </body>
 </html>
