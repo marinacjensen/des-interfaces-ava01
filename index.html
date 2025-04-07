@@ -1,110 +1,135 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editor de Cards</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Editor de Cards</title>
+  <link rel="stylesheet" href="./src/style.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+</head>
 <body>
-    <h1 class="text-center">Editor de Galeria de Produtos</h1>
-    <div class="container">
-        <div class="editor">
-            <h2>Controle dos Cards</h2>
-            <label for="imagem">Escolha uma imagem:</label>
-            <input type="file" id="imagem" accept="image/*">
+  <h1 class="text-center mb-4">Editor de Galeria de Produtos</h1>
+  <div class="container">
+    <div class="editor">
+      <h2>Controle dos Cards</h2>
+      <label for="imagem">Escolha uma imagem:</label>
+      <input type="file" id="imagem" accept="image/*" class="form-control">
 
-            <label for="texto">Texto do Card:</label>
-            <input type="text" id="texto" placeholder="Descrição do Produto">
+      <label for="texto">Texto do Card:</label>
+      <input type="text" id="texto" class="form-control" placeholder="Descrição do Produto">
 
-            <label for="bgColor">Cor de Fundo:</label>
-            <input type="color" id="bgColor" value="#ffffff">
+      <label for="bgColor">Cor de Fundo:</label>
+      <input type="color" id="bgColor" value="#ffffff" class="form-control form-control-color">
 
-            <label for="borderColor">Cor da Borda:</label>
-            <input type="color" id="borderColor" value="#dddddd">
+      <label for="borderColor">Cor da Borda:</label>
+      <input type="color" id="borderColor" value="#dddddd" class="form-control form-control-color">
 
-            <label for="fontSize">Tamanho da Fonte:</label>
-            <input type="range" id="fontSize" min="12" max="30" value="14">
+      <label for="fontSize">Tamanho da Fonte:</label>
+      <input type="range" id="fontSize" min="12" max="30" value="14" class="form-range">
 
-            <label for="cardWidth">Largura do Card:</label>
-            <input type="range" id="cardWidth" min="50" max="300" value="50">
+      <label for="cardWidth">Largura do Card:</label>
+      <input type="range" id="cardWidth" min="50" max="300" value="250" class="form-range">
 
-            <label for="cardHeight">Altura do Card:</label>
-            <input type="range" id="cardHeight" min="50" max="300" value="50">
+      <label for="cardHeight">Altura do Card:</label>
+      <input type="range" id="cardHeight" min="50" max="300" value="180" class="form-range">
 
-            <button id="adicionarButton" class="btn btn-primary mt-2">Adicionar Card</button>
-            <hr>
-            <label for="escolhido">Remover Card:</label>
-            <input type="number" id="escolhido" min="1" placeholder="Número do Card">
-            <button id="removerButton" class="btn btn-danger">Remover</button>
-            <hr>
-            <button id="resetarButton" class="btn btn-danger">Limpar Todos</button>
-        </div>
-        <div id="painel">
-            <!-- Cards adicionados aqui -->
-        </div>
+      <button id="adicionarButton" class="btn btn-success mt-2 w-100"><i class="bi bi-plus-circle"></i> Adicionar Card</button>
+      <button id="resetarButton" class="btn btn-danger mt-2 w-100"><i class="bi bi-trash"></i> Limpar Todos</button>
     </div>
 
-    <script>
-        let painel = document.querySelector("#painel");
-        let imagemInput = document.querySelector("#imagem");
-        let textoInput = document.querySelector("#texto");
-        let bgColorInput = document.querySelector("#bgColor");
-        let borderColorInput = document.querySelector("#borderColor");
-        let fontSizeInput = document.querySelector("#fontSize");
-        let cardWidthInput = document.querySelector("#cardWidth");
-        let cardHeightInput = document.querySelector("#cardHeight");
-        let escolhidoInput = document.querySelector("#escolhido");
-        let adicionarButton = document.querySelector("#adicionarButton");
-        let removerButton = document.querySelector("#removerButton");
-        let resetarButton = document.querySelector("#resetarButton");
-    
-        function adicionarCard() {
-            if (imagemInput.files.length === 0) {
-                alert("A adição de imagens é obrigatória. Por favor, selecione uma foto para continuar.");
-                return;
-            }
-    
-            const card = document.createElement("div");
-            card.classList.add("card");
-    
-            let imagem = document.createElement("img");
-            let file = imagemInput.files[0];
-            imagem.src = URL.createObjectURL(file);
-            card.appendChild(imagem);
-    
-            const cardText = document.createElement("div");
-            cardText.classList.add("card-text");
-            cardText.innerText = textoInput.value || "Texto do Card";
-            card.appendChild(cardText);
-    
-            card.style.backgroundColor = bgColorInput.value;
-            card.style.borderColor = borderColorInput.value;
-            card.style.fontSize = fontSizeInput.value + "px";
-            card.style.width = cardWidthInput.value + "px";
-            card.style.height = cardHeightInput.value + "px";
-    
-            painel.appendChild(card);
-        }
-    
-        function removerCard() {
-            let todosCards = document.querySelectorAll(".card");
-            let cardEscolhido = parseInt(escolhidoInput.value) - 1;
-            if (todosCards[cardEscolhido]) {
-                todosCards[cardEscolhido].remove();
-            }
-        }
-    
-        function limparCards() {
-            painel.innerHTML = "";
-        }
-    
-        adicionarButton.addEventListener("click", adicionarCard);
-        removerButton.addEventListener("click", removerCard);
-        resetarButton.addEventListener("click", limparCards);
-    </script>
-    
+    <div id="painel">
+      <!-- Espaço p/ cards -->
+    </div>
+  </div>
+
+  <script>
+    const painel = document.querySelector("#painel");
+    const imagemInput = document.querySelector("#imagem");
+    const textoInput = document.querySelector("#texto");
+    const bgColorInput = document.querySelector("#bgColor");
+    const borderColorInput = document.querySelector("#borderColor");
+    const fontSizeInput = document.querySelector("#fontSize");
+    const cardWidthInput = document.querySelector("#cardWidth");
+    const cardHeightInput = document.querySelector("#cardHeight");
+    const adicionarButton = document.querySelector("#adicionarButton");
+    const resetarButton = document.querySelector("#resetarButton");
+
+    function criarCard(imagemSrc, texto, bgColor, borderColor, fontSize, width, height) {
+      const card = document.createElement("div");
+      card.classList.add("card");
+
+      const imagem = document.createElement("img");
+      imagem.src = imagemSrc;
+      card.appendChild(imagem);
+
+      const textoDiv = document.createElement("div");
+      textoDiv.classList.add("card-text");
+      textoDiv.innerText = texto;
+      card.appendChild(textoDiv);
+
+      const botaoEditar = document.createElement("button");
+      botaoEditar.classList.add("btn-editar");
+      botaoEditar.innerText = "✏️";
+      botaoEditar.onclick = () => editarCard(card, texto);
+      card.appendChild(botaoEditar);
+
+      const botaoRemover = document.createElement("button");
+      botaoRemover.classList.add("btn-remover");
+      botaoRemover.innerText = "🗑️";
+      botaoRemover.onclick = () => removerCardIndividual(card);
+      card.appendChild(botaoRemover);
+
+      card.style.backgroundColor = bgColor;
+      card.style.borderColor = borderColor;
+      card.style.fontSize = fontSize + "px";
+      card.style.width = width + "px";
+      card.style.height = height + "px";
+
+      painel.appendChild(card);
+    }
+
+    function adicionarCard() {
+      if (!imagemInput.files.length) {
+        alert("Por favor, selecione uma imagem.");
+        return;
+      }
+
+      const imagemSrc = URL.createObjectURL(imagemInput.files[0]);
+      const texto = textoInput.value || "Texto do Card";
+      const bgColor = bgColorInput.value;
+      const borderColor = borderColorInput.value;
+      const fontSize = fontSizeInput.value;
+      const width = cardWidthInput.value;
+      const height = cardHeightInput.value;
+
+      criarCard(imagemSrc, texto, bgColor, borderColor, fontSize, width, height);
+
+      textoInput.value = "";
+      imagemInput.value = null;
+    }
+
+    function limparCards() {
+      if (confirm("Tem certeza que deseja remover todos os cards?")) {
+        painel.innerHTML = "";
+      }
+    }
+
+    function editarCard(card, textoAntigo) {
+      const novoTexto = prompt("Digite o novo texto do card:", textoAntigo);
+      if (novoTexto !== null) {
+        card.querySelector(".card-text").innerText = novoTexto;
+      }
+    }
+
+    function removerCardIndividual(card) {
+      if (confirm("Deseja remover este card?")) {
+        card.remove();
+      }
+    }
+
+    adicionarButton.addEventListener("click", adicionarCard);
+    resetarButton.addEventListener("click", limparCards);
+  </script>
 </body>
 </html>
